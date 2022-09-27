@@ -14,8 +14,11 @@ export class Courier {
   @Prop({ required: true })
   longitude: number;
 
-  @Prop({ required: true })
-  createdAt: Date;
+  @Prop({ required: false })
+  createdAt?: Date;
+
+  @Prop({ required: false })
+  updatedAt?: Date;
 
   @Prop()
   deletedAt?: Date;

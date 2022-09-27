@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { CreateCourierDto } from './dto/CreateCourier.dto';
-import { UpdateCourierDto } from './dto/UpdateCourier.dto';
+import { CreateCourierDto } from './dto/createCourier.dto';
+import { UpdateCourierDto } from './dto/updateCourier.dto';
 import { Courier, CourierDocument } from './schemas/couriers.schema';
 
 @Injectable()
@@ -19,18 +19,18 @@ export class CourierService {
     return await this.model.findById(id).exec();
   }
 
-  async create(CreateCourierDto: CreateCourierDto): Promise<Courier> {
+  async create(createCourierDto: CreateCourierDto): Promise<Courier> {
     return await new this.model({
-      ...CreateCourierDto,
+      ...createCourierDto,
       createdAt: new Date(),
     }).save();
   }
 
   async update(
     id: string,
-    UpdateCourierDto: UpdateCourierDto,
+    updateCourierDto: UpdateCourierDto,
   ): Promise<Courier> {
-    return await this.model.findByIdAndUpdate(id, UpdateCourierDto).exec();
+    return await this.model.findByIdAndUpdate(id, updateCourierDto).exec();
   }
 
   async delete(id: string): Promise<Courier> {

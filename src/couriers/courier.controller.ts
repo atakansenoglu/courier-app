@@ -13,21 +13,21 @@ import { UpdateCourierDto } from './dto/UpdateCourier.dto';
 
 @Controller('couriers')
 export class CourierController {
-  constructor(private readonly courierService: CourierService) {}
+  constructor(private readonly service: CourierService) {}
 
   @Get()
   async index() {
-    return await this.courierService.findAll();
+    return await this.service.findAll();
   }
 
   @Get(':id')
   async find(@Param('id') id: string) {
-    return await this.courierService.findOne(id);
+    return await this.service.findOne(id);
   }
 
   @Post()
   async create(@Body() createCourierDto: CreateCourierDto) {
-    return await this.courierService.create(createCourierDto);
+    return await this.service.create(createCourierDto);
   }
 
   @Put(':id')
@@ -35,11 +35,11 @@ export class CourierController {
     @Param('id') id: string,
     @Body() updateCourierDto: UpdateCourierDto,
   ) {
-    return await this.courierService.update(id, updateCourierDto);
+    return await this.service.update(id, updateCourierDto);
   }
 
   @Delete(':id')
   async delete(@Param('id') id: string) {
-    return await this.courierService.delete(id);
+    return await this.service.delete(id);
   }
 }
