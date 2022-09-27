@@ -6,7 +6,7 @@ import { UpdateCourierDto } from './dto/UpdateCourier.dto';
 import { Courier, CourierDocument } from './schemas/couriers.schema';
 
 @Injectable()
-export class AppService {
+export class CourierService {
   constructor(
     @InjectModel(Courier.name) private readonly model: Model<CourierDocument>,
   ) {}
@@ -36,20 +36,4 @@ export class AppService {
   async delete(id: string): Promise<Courier> {
     return await this.model.findByIdAndDelete(id).exec();
   }
-
-  /* getHello(): string {
-    return 'Hello World!';
-  }
-
-  saveLocation(): string {
-    return 'Location saved.';
-  }
-
-  getCourierLocation(): string {
-    return 'Courier location...';
-  }
-
-  getAllLocation(): string {
-    return 'All couriers locations...';
-  } */
 }

@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { CourierController } from './courier.controller';
+import { CourierService } from './courier.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Courier, CourierSchema } from './schemas/couriers.schema';
 
@@ -8,7 +8,7 @@ import { Courier, CourierSchema } from './schemas/couriers.schema';
   imports: [
     MongooseModule.forFeature([{ name: Courier.name, schema: CourierSchema }]),
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [CourierController],
+  providers: [CourierService],
 })
-export class AppModule {}
+export class CourierModule {}
