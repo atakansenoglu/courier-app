@@ -1,0 +1,14 @@
+#docker-compose file
+version: '3'
+
+services:
+  courier-app:
+    container_name: courier-app
+    image: courier-app:1.0.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '4000:4000'
+    env_file:
+      - .env
