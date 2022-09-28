@@ -1,13 +1,11 @@
-FROM node:14
+FROM node:14.15 AS development
 
-RUN npm i -g @nestjs/cli
+#  Navigate to the container working directory 
+WORKDIR /usr/src/app
+#  Copy package.json
+COPY package*.json ./
 
-COPY package.json .
-
+RUN npm install glob rimraf
 RUN npm install
-
 COPY . .
-
-EXPOSE 3000
-
-CMD ["nest", "start"]
+RUN npm run build
