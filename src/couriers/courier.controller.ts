@@ -8,10 +8,10 @@ import {
   Put,
 } from '@nestjs/common';
 import { CourierService } from './courier.service';
-import { CreateCourierDto } from './dto/CreateCourier.dto';
-import { UpdateCourierDto } from './dto/UpdateCourier.dto';
+import { CreateCourierDto } from './dto/createCourier.dto';
+import { UpdateCourierDto } from './dto/updateCourier.dto';
 
-@Controller('couriers')
+@Controller('courier')
 export class CourierController {
   constructor(private readonly service: CourierService) {}
 
