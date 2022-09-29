@@ -1,41 +1,18 @@
-version: '3.9'
+version: '3'
 services:
-  dev:
-    container_name: server-dev
-    image: server-dev:1.0.0
-    build:
-      context: .
-      target: development
-      dockerfile: ./Dockerfile
-    command: npm run start:debug
-    ports:
-      - 3002:3002
-    networks:
-      - server-network
-    volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
-    restart: unless-stopped
-    depends_on:
-      - mongodb
-    environment:
-      MONGO_URL: root:pass12345@localhost
-
   mongodb:
-    image: mongo:5.0.0
-    container_name: server-mongodb
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=pass12345
-    networks:
-      - server-network
+    container_name: couriers-db
+    image: mongo:latest
+    volumes:
+      - ./scripts/mongo/init/:/docker-entrypoint-initdb.d
+      - ./scripts/mongo/init:/home/mongodb
+      - ./scripts/mongo/seed/:/home/mongodb/seed
+      - couriers_data:/data/db
     ports:
-      - 27017:27017
-    healthcheck:
-      test: echo 'db.runCommand("ping").ok' | mongo localhost:27017/test --quiet
-      interval: 30s
-      timeout: 10s
-      retries: 3
-    restart: unless-stopped
-networks:
-  server-network:
+      - '28017:27017'
+    environment:
+      - db_name=$db_name
+      - DB_COLLECTION_NAME=$DB_COLLECTION_NAME
+      - MONGO_HOSTNAME=$MONGO_HOSTNAME
+volumes:
+  couriers_data:
