@@ -11,8 +11,6 @@ services:
     ports:
       - '28017:27017'
     environment:
-      - db_user=$db_user
-      - db_pass=$db_pass
       - db_name=$db_name
       - DB_COLLECTION_NAME=$DB_COLLECTION_NAME
       - MONGO_HOSTNAME=$MONGO_HOSTNAME
