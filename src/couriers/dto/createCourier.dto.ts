@@ -1,3 +1,13 @@
 import { BaseCourierDto } from './baseDto.dto';
+import { IsInt, IsString } from 'class-validator';
 
-export class CreateCourierDto extends BaseCourierDto {}
+export class CreateCourierDto {
+  @IsString()
+  courierId: string;
+
+  @IsInt()
+  latitude: number;
+
+  @IsInt()
+  longitude: number;
+}
