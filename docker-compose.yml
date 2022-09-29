@@ -1,14 +1,20 @@
-#docker-compose file
 version: '3'
-
 services:
-  courier-app:
-    container_name: courier-app
-    image: courier-app:1.0.0
-    build:
-      context: .
-      dockerfile: Dockerfile
+  mongodb:
+    container_name: couriers-db
+    image: mongo:latest
+    volumes:
+      - ./scripts/mongo/init/:/docker-entrypoint-initdb.d
+      - ./scripts/mongo/init:/home/mongodb
+      - ./scripts/mongo/seed/:/home/mongodb/seed
+      - couriers_data:/data/db
     ports:
-      - '3001:3001'
-    env_file:
-      - .env
+      - '28017:27017'
+    environment:
+      - db_user=$db_user
+      - db_pass=$db_pass
+      - db_name=$db_name
+      - DB_COLLECTION_NAME=$DB_COLLECTION_NAME
+      - MONGO_HOSTNAME=$MONGO_HOSTNAME
+volumes:
+  couriers_data:
