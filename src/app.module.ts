@@ -8,9 +8,7 @@ import { AppService } from './app.service';
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    MongooseModule.forRoot(
-      `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/?retryWrites=true&w=majority`,
-    ),
+    MongooseModule.forRoot(`mongodb://localhost/demo`),
     CourierModule,
   ],
   controllers: [AppController],
