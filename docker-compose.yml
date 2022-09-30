@@ -1,8 +1,8 @@
 version: '3'
 services:
   mongodb:
-    container_name: couriers-db
     image: mongo:latest
+    restart: always
     volumes:
       - ./scripts/mongo/init/:/docker-entrypoint-initdb.d
       - ./scripts/mongo/init:/home/mongodb
@@ -14,5 +14,35 @@ services:
       - db_name=$db_name
       - DB_COLLECTION_NAME=$DB_COLLECTION_NAME
       - MONGO_HOSTNAME=$MONGO_HOSTNAME
+
+  cache:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning
+    volumes:
+      - cache:/data
+
+  api:
+    container_name: couriers-db
+    build:
+      context: ./
+    image: couriers-app
+    depends_on:
+      - mongodb
+      - cache
+    ports:
+      - 3000:3000
+    environment:
+      - .env
+    links:
+      - mongodb
+      - cache
+    volumes:
+      - ./:/src
 volumes:
   couriers_data:
+    driver: local
+  cache:
+    driver: local
